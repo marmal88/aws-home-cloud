@@ -1,8 +1,8 @@
 locals {
   environment_name = split("/", path_relative_to_include())[1]
   # Terragrunt will search up the directory tree for the nearest env.hcl
-  sensitive_inputs  = read_terragrunt_config(find_in_parent_folders("env.hcl")).inputs
-  target_account_id = lookup(local.sensitive_inputs.account_ids, local.environment_name, null)
+  environment_vars  = yamldecode(file(find_in_parent_folders("global_environment.yaml")))
+  target_account_id = lookup(local.environment_vars.account_ids, local.environment_name, null)
 
   # use the environment name to select the IAM Role ARN. Error out if there is no match
   terraform_role_arn = "arn:aws:iam::${local.target_account_id}:role/terraform-role"
@@ -23,13 +23,11 @@ remote_state {
   backend = "s3"
 
   config = {
-    profile        = "terraform-user"
-    role_arn       = local.terraform_role_arn
-    bucket         = local.backend_bucket_name
-    key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = local.backend_bucket_region
-    dynamodb_table = local.backend_dynamodb_table
-    encrypt        = true
+    bucket = local.backend_bucket_name
+    key    = "${path_relative_to_include()}/terraform.tfstate"
+    region = local.backend_bucket_region
+    # dynamodb_table = local.backend_dynamodb_table
+    encrypt = true
   }
   # terragrunt will generate the terraform file with the backend configuration
   generate = {
@@ -47,13 +45,12 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.94.1"
+      version = "~> 6.0.0"
     }
   }
 }
 
 provider "aws" {
-  profile = "terraform-user"
   region  = "${local.environment_region}"
   assume_role {
     role_arn = "${local.terraform_role_arn}"
