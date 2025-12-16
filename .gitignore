@@ -1,5 +1,5 @@
 # env hcl files
-env.hcl
+global_environment.hcl
 
 # terragrunt cache directories
 **/.terragrunt-cache/*
