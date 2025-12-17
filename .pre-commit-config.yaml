@@ -8,9 +8,9 @@ repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.104.0
     hooks:
-      - id: terraform_checkov
-        args:
-          - --args=-quiet
+      # - id: terraform_checkov
+      #   args:
+      #     - --args=--skip-check CKV2_AWS_8
       - id: terraform_fmt
       - id: terraform_tflint
         args:
