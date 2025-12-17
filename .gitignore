@@ -1,5 +1,6 @@
 # env hcl files
-global_environment.hcl
+global_environment.yaml
+**/.infracost/*
 
 # terragrunt cache directories
 **/.terragrunt-cache/*
