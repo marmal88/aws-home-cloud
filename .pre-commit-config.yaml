@@ -1,16 +1,22 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-json # This will only validate JSON syntax without modifying files
+      - id: check-yaml
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.96.2
+    rev: v1.104.0
     hooks:
-    - id: terraform_fmt
-    - id: terraform_tflint
-      args:
-        - '--args=--disable-rule=terraform_required_version'
-        - '--args=--disable-rule=terraform_required_providers'
-    - id: terragrunt_fmt
-
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-    - id: check-json  # This will only validate JSON syntax without modifying files
+      - id: terraform_checkov
+        args:
+          - --args=-quiet
+      - id: terraform_fmt
+      - id: terraform_tflint
+        args:
+          - "--args=--disable-rule=terraform_required_version"
+          - "--args=--disable-rule=terraform_required_providers"
+      - id: infracost_breakdown
+        args:
+          - "--args=--path ."
+        verbose: true
