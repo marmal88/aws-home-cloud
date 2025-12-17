@@ -10,11 +10,16 @@ To use `pre-commit` use the following steps:
 #### Infracost breakdown
 To allow infracost breakdown to work you will need to register an account [here](https://www.infracost.io/docs/#quick-start)
     - Login to infracost using `infracost auth login`
+    - Change the infracost to your desired currency `infracost configure set currency SGD`, this writes to the `~/.config/infracost/configuration.yml`.
     - Run infracost based path `infracost breakdown --path .`
+
+#### Checkov
+For static analysis of the terraform codebase, please install `checkov`.
+    - To run checkov on specific files, run `checkov --file <file-path>`
 
 ### 1. AWS setup
 Install or upgrade to latest version of `aws cli` [link](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-    - `brew install awscli`
+    - Install using the command `brew install awscli`
     - AWS CLI tutorial [Link](https://medium.com/@amiri.mccain/install-aws-cli-and-configure-credentials-and-config-files-on-a-mac-cda81cf64052)
     - AWS terragrunt tutorial [Link](https://www.youtube.com/watch?v=yduHaOj3XMg&t=1426s)
 
