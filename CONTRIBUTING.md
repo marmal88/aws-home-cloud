@@ -7,6 +7,11 @@ To use `pre-commit` use the following steps:
     - Check for installed version of `pre-commit` using `pre-commit --version`, If no version found install precommit using `brew install pre-commit`
     - Run `pre-commit` in the repo 
 
+#### Infracost breakdown
+To allow infracost breakdown to work you will need to register an account [here](https://www.infracost.io/docs/#quick-start)
+    - Login to infracost using `infracost auth login`
+    - Run infracost based path `infracost breakdown --path .`
+
 ### 1. AWS setup
 Install or upgrade to latest version of `aws cli` [link](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
     - `brew install awscli`
